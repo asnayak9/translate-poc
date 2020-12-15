@@ -1,67 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico"/>
+    
+    <title>POC webapp</title>
 
-    <title>Navbar Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
 </head>
 <body>
-<div class="container">
-    <!-- Static navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="#">Navbar</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#">Link</a>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Dropdown
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
-	        </div>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link disabled" href="#">Disabled</a>
-	      </li>
-	    </ul>
-	    <form class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-	      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-	    </form>
-	  </div>
-	</nav>
-	
+<div layout:fragment="content" class="container">
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
         <!--Usage of models we wrote in WepAppController th:text="'Welcome to basic Bootstrap with Spring Boot created by ' + ${username} -->
-        <h3 th:text="'Welcome to basic Bootstrap with Spring Boot created by ' + ${username}"></h3>
-        <p th:text="'This date example  ' + ${#dates.format(datetime, 'dd MMM yyyy HH:mm')}"></p>
+        <h3 th:text="'Welcome to Tamilnadu taxbook, created by ' + ${username}"></h3>
+        <p th:text="'Todays date  ' + ${#dates.format(datetime, 'dd MMM yyyy HH:mm')}"></p>
         
         <p id="target"></p>
         
-        <form id="createBookFrm" action="#" th:object="${book}"  method="post">
+        <!--  <form id="createBookFrm" action="#" th:object="${book}"  method="post">
 		    <div class="form-group">
     			<label for="bookTitle">Title</label>
 		        <input id="bookTitle" type="text" th:field="*{title}" class="form-control" placeholder="Enter book title" />
@@ -92,68 +46,125 @@
 					<td th:text="${b.author}"></td>
 				</tr>
 			</tbody>
+		</table> -->
+		
+		<table id="taxTable" class="table table-hover">
+			<thead>
+				<tr>
+					<th>S.NO</th>
+					<th>DEMAND NO</th>
+					<th>DOOR NO</th>
+					<th>HOUSE TYPE</th>
+					<th>NAME</th>
+					<th>F/H  NAME</th>
+					<th>HEIGHT</th>
+					<th>LENGTH</th>
+					<th>TOTAL</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr colspan="9" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>CONCRETE</td>
+					<td>RANI</td>
+					<td>MARUTHAIVEERAN</td>
+					<td>27</td>
+					<td>22</td>
+					<td>594</td>
+				</tr>
+				<tr class="p">
+				    <td colspan="9" class="hiddenRow">
+					    <div class="accordian-body collapse p-3" id="demo1">
+					         <div class="row">
+					         	<div class="col-md-6">
+					         		<h4>Required</h4>
+					         		<h6>House Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>300</span> </p>
+							        
+							        <h6>Library Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>30</span> </p>
+							        
+							        <h6>Total Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>330</span> </p>
+					         	</div>
+					         	<div class="col-md-6">
+					         		<h4>Received</h4>
+					         		<h6>House Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>300</span> </p>
+							        
+							        <h6>Library Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>30</span> </p>
+							        
+							        <h6>Total Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>330</span> </p>
+					         	</div>
+					         </div>
+					         
+					    </div> 
+				    </td> 
+				</tr>
+				<tr colspan="9" data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
+					<td>2</td>
+					<td>2</td>
+					<td>2</td>
+					<td>IAY</td>
+					<td>SAMPOORANAM</td>
+					<td>SENTHIL</td>
+					<td>22</td>
+					<td>21</td>
+					<td>462</td>
+				</tr>
+				<tr class="p">
+				    <td colspan="9" class="hiddenRow">
+					    <div class="accordian-body collapse p-3" id="demo2">
+					         <div class="row">
+					         	<div class="col-md-6">
+					         		<h4>Required</h4>
+					         		<h6>House Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>300</span> </p>
+							        
+							        <h6>Library Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>30</span> </p>
+							        
+							        <h6>Total Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>330</span> </p>
+					         	</div>
+					         	<div class="col-md-6">
+					         		<h4>Received</h4>
+					         		<h6>House Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>300</span> </p>
+							        
+							        <h6>Library Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>30</span> </p>
+							        
+							        <h6>Total Tax</h6>
+					         		<p>Arrear : <span> </span></p>
+							        <p>Current : <span>330</span> </p>
+					         	</div>
+					         </div>
+					         
+					    </div> 
+				    </td> 
+				</tr>
+			</tbody>
 		</table>
         
     </div>
 </div> <!-- /container -->
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="../js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../js/scripts/tax-table.js" th:href="@{/js/scripts/tax-table.js}"></script>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	console.log('Ready...');
-    // click on button submit
-    $("#createBookFrm").submit(function(e){
-    	e.preventDefault(); // avoid to execute the actual submit of the form.
-    	console.log('Create book form submitted...');
-    	send();
-    	
-    });
-});
-
-function send() {
-    var book = {
-    	title: $("#bookTitle").val(),
-    	author:$("#bookAuthor").val()
-    }
-
-    var $frm = $("#createBookFrm #submit");
-    
-    $.ajax({
-        url: '/api/books',
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            $('#target').html(data.msg);
-            findAll();
-        },
-        data: JSON.stringify(book)
-    });
-}
-
-function findAll(){
-	$.ajax({ 
-	    type: 'GET', 
-	    url: '/api/books',  
-	    dataType: 'json',
-	    success: function (data) {
-	    	var tbl = $('#bookTable tbody');
-	    	tbl.empty();
-	        $.each(data, function(index, element) {
-	        	tbl.append('<tr>' +
-	        		'<td>'+element.id+' </td> ' +
-	        		'<td>'+element.title+' </td>' +
-	        		'<td>'+element.author+' </td>' +
-	        		'</tr>');
-	        });
-	    }
-	});
-}
-</script>
 </body>
 </html>
