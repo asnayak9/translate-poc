@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.shree.poc.entities.Book;
-
 /**
  * 
  * @author Abhishek Nayak
@@ -36,7 +34,6 @@ public class HomeContoller {
         model.addAttribute("datetime", new Date());
         model.addAttribute("username", "Shree");
         model.addAttribute("mode", appMode);
-        model.addAttribute("book", new Book());
         return "index";
     }
 }

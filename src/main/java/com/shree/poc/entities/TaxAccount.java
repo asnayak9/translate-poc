@@ -1,0 +1,145 @@
+package com.shree.poc.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tax_account")
+public class TaxAccount {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private long id;
+
+	@ManyToOne
+	private Taxbook taxbook;
+	
+	@OneToOne(mappedBy = "taxAccount")
+	private TaxTypes taxType;
+	
+	@Column(name = "house_tax_arrear")
+	private Integer houseTaxArrear;
+	
+	@Column(name = "house_tax_current")
+	private Integer houseTaxCurrent;
+	
+	@Column(name = "liberty_tax_arrear")
+	private Integer libertyTaxArrear;
+	
+	@Column(name = "liberty_tax_current")
+	private Integer libertyTaxCurrent;
+	
+	@Column(name = "total_tax_arrear")
+	private Integer totalTaxArrear;
+	
+	@Column(name = "total_tax_current")
+	private Integer totalTaxCurrent;
+	
+	public TaxAccount() {}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public TaxTypes getTaxType() {
+		return taxType;
+	}
+
+	public void setTaxType(TaxTypes taxType) {
+		this.taxType = taxType;
+	}
+
+	public Integer getHouseTaxArrear() {
+		return houseTaxArrear;
+	}
+
+	public void setHouseTaxArrear(Integer houseTaxArrear) {
+		this.houseTaxArrear = houseTaxArrear;
+	}
+
+	public Integer getHouseTaxCurrent() {
+		return houseTaxCurrent;
+	}
+
+	public void setHouseTaxCurrent(Integer houseTaxCurrent) {
+		this.houseTaxCurrent = houseTaxCurrent;
+	}
+
+	public Integer getLibertyTaxArrear() {
+		return libertyTaxArrear;
+	}
+
+	public void setLibertyTaxArrear(Integer libertyTaxArrear) {
+		this.libertyTaxArrear = libertyTaxArrear;
+	}
+
+	public Integer getLibertyTaxCurrent() {
+		return libertyTaxCurrent;
+	}
+
+	public void setLibertyTaxCurrent(Integer libertyTaxCurrent) {
+		this.libertyTaxCurrent = libertyTaxCurrent;
+	}
+
+	public Integer getTotalTaxArrear() {
+		return totalTaxArrear;
+	}
+
+	public void setTotalTaxArrear(Integer totalTaxArrear) {
+		this.totalTaxArrear = totalTaxArrear;
+	}
+
+	public Integer getTotalTaxCurrent() {
+		return totalTaxCurrent;
+	}
+
+	public void setTotalTaxCurrent(Integer totalTaxCurrent) {
+		this.totalTaxCurrent = totalTaxCurrent;
+	}
+
+	public Taxbook getTaxbook() {
+		return taxbook;
+	}
+
+	public void setTaxbook(Taxbook taxbook) {
+		this.taxbook = taxbook;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("TaxAccount [id=");
+		builder.append(id);
+		builder.append(", taxAccount=");
+		builder.append(taxbook.getName());
+		builder.append(", taxType=");
+		builder.append(taxType.getTypeName());
+		builder.append(", houseTaxArrear=");
+		builder.append(houseTaxArrear);
+		builder.append(", houseTaxCurrent=");
+		builder.append(houseTaxCurrent);
+		builder.append(", libertyTaxArrear=");
+		builder.append(libertyTaxArrear);
+		builder.append(", libertyTaxCurrent=");
+		builder.append(libertyTaxCurrent);
+		builder.append(", totalTaxArrear=");
+		builder.append(totalTaxArrear);
+		builder.append(", totalTaxCurrent=");
+		builder.append(totalTaxCurrent);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+}
