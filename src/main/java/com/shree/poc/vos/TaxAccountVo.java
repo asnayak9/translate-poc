@@ -1,6 +1,9 @@
 package com.shree.poc.vos;
 
+import java.util.Optional;
+
 import com.shree.poc.entities.TaxAccount;
+import com.shree.poc.entities.TaxTypes;
 
 public class TaxAccountVo {
 
@@ -28,7 +31,9 @@ public class TaxAccountVo {
 		this.id = taxAccount.getId();
 		this.libertyTaxArrear = taxAccount.getLibertyTaxArrear();
 		this.houseTaxCurrent = taxAccount.getLibertyTaxCurrent();
-		this.taxType = taxAccount.getTaxType().getTypeName();
+		Optional<TaxTypes> taxType = Optional.ofNullable(taxAccount.getTaxType());
+		
+		this.taxType = taxType.isPresent()? taxType.get().getTypeName() : " ";
 		this.totalTaxArrear = taxAccount.getTotalTaxArrear();
 		this.totalTaxCurrent = taxAccount.getTotalTaxCurrent();
 	}
