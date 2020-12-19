@@ -2,6 +2,7 @@ package com.shree.poc.vos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.shree.poc.entities.TaxAccount;
 import com.shree.poc.entities.Taxbook;
@@ -30,6 +31,8 @@ public class TaxEntryVo {
 
 	private List<TaxAccountVo> taxAccount;
 	
+	private Map<String, TaxAccountVo> taxAccountMap;
+	
 	public TaxEntryVo() {}
 
 	public TaxEntryVo(Taxbook taxBook) {
@@ -47,6 +50,7 @@ public class TaxEntryVo {
 		for(TaxAccount ta : taxBook.getTaxAccount()) {
 			this.taxAccount.add(new TaxAccountVo(ta));
 		}
+		this.total = taxBook.getTotal();
 	}
 
 	public long getTaxbookId() {
@@ -135,6 +139,14 @@ public class TaxEntryVo {
 
 	public void setTaxAccount(List<TaxAccountVo> taxAccount) {
 		this.taxAccount = taxAccount;
+	}
+
+	public Map<String, TaxAccountVo> getTaxAccountMap() {
+		return taxAccountMap;
+	}
+
+	public void setTaxAccountMap(Map<String, TaxAccountVo> taxAccountMap) {
+		this.taxAccountMap = taxAccountMap;
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,7 +23,8 @@ public class TaxAccount {
 	@JoinColumn(name="taxbook_id")
 	private Taxbook taxbook;
 	
-	@OneToOne(mappedBy = "taxAccount")
+	@OneToOne
+	@JoinColumn(name="tax_type_id")
 	private TaxTypes taxType;
 	
 	@Column(name = "house_tax_arrear")
@@ -117,6 +117,29 @@ public class TaxAccount {
 
 	public void setTaxbook(Taxbook taxbook) {
 		this.taxbook = taxbook;
+	}
+
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TaxAccount other = (TaxAccount) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	@Override

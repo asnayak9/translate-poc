@@ -31,6 +31,7 @@ public class TaxAccountVo {
 		this.id = taxAccount.getId();
 		this.libertyTaxArrear = taxAccount.getLibertyTaxArrear();
 		this.houseTaxCurrent = taxAccount.getLibertyTaxCurrent();
+
 		Optional<TaxTypes> taxType = Optional.ofNullable(taxAccount.getTaxType());
 		
 		this.taxType = taxType.isPresent()? taxType.get().getTypeName() : " ";

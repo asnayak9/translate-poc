@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     
     <title>POC webapp</title>
@@ -15,39 +15,6 @@
         
         <p id="target"></p>
         
-        <!--  <form id="createBookFrm" action="#" th:object="${book}"  method="post">
-		    <div class="form-group">
-    			<label for="bookTitle">Title</label>
-		        <input id="bookTitle" type="text" th:field="*{title}" class="form-control" placeholder="Enter book title" />
-		    	<small id="titleHelp" class="form-text text-muted">Enter new book title.</small>
-  			</div>
-		    <div class="form-group">
-    			<label for="bookAuthor">Author</label>
-		        <input id="bookAuthor" type="text" th:field="*{author}" class="form-control" placeholder="Author name" />
-		    </div>
-		       
-		    <input id="submit" type="submit" value="Submit" class="btn btn-primary"/> <input type="reset" value="Reset" class="btn btn-danger"/>
-		</form>
-		
-		<br/>
-		
-		<table id="bookTable" class="table table-striped">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Title</th>
-					<th>Author</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="b : ${books}">
-					<td th:text="${b.id}"></td>
-					<td th:text="${b.title}"></td>
-					<td th:text="${b.author}"></td>
-				</tr>
-			</tbody>
-		</table> -->
-		
 		<table id="taxTable" class="table table-hover">
 			<thead>
 				<tr>
@@ -164,7 +131,6 @@
         
     </div>
 </div> <!-- /container -->
-<script src="../js/scripts/tax-table.js" th:href="@{/js/scripts/tax-table.js}"></script>
 
 </body>
 </html>

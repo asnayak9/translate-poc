@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -140,6 +138,28 @@ public class Taxbook {
 
 	public void setTaxAccount(List<TaxAccount> taxAccount) {
 		this.taxAccount = taxAccount;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (taxbookId ^ (taxbookId >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Taxbook other = (Taxbook) obj;
+		if (taxbookId != other.taxbookId)
+			return false;
+		return true;
 	}
 
 	@Override

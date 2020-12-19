@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS tax_types;
 DROP TABLE IF EXISTS tax_account;
+DROP TABLE IF EXISTS tax_types;
 DROP TABLE IF EXISTS taxbook;
 
 CREATE TABLE taxbook (
