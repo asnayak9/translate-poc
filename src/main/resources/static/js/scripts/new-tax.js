@@ -79,8 +79,12 @@ function send() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
+        	alert(data.message);
         	$('div#newTaxEntryCreatedAlert').removeClass('d-none');
         	$('div#newTaxEntryCreatedAlert').addClass('d-block');
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
         },
         data: JSON.stringify(newTax)
     });
