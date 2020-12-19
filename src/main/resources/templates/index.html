@@ -15,7 +15,7 @@
         
         <p id="target"></p>
         
-		<table id="taxTable" class="table table-hover">
+		<table id="taxTable" class="table table-sm table-hover tablemanager">
 			<thead>
 				<tr>
 					<th>S.NO</th>
@@ -30,104 +30,58 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr colspan="9" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
-					<td>1</td>
-					<td>1</td>
-					<td>1</td>
-					<td>CONCRETE</td>
-					<td>RANI</td>
-					<td>MARUTHAIVEERAN</td>
-					<td>27</td>
-					<td>22</td>
-					<td>594</td>
-				</tr>
-				<tr class="p">
-				    <td colspan="9" class="hiddenRow">
-					    <div class="accordian-body collapse p-3" id="demo1">
-					         <div class="row">
-					         	<div class="col-md-6">
-					         		<h4>Required</h4>
-					         		<h6>House Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>300</span> </p>
-							        
-							        <h6>Library Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>30</span> </p>
-							        
-							        <h6>Total Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>330</span> </p>
-					         	</div>
-					         	<div class="col-md-6">
-					         		<h4>Received</h4>
-					         		<h6>House Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>300</span> </p>
-							        
-							        <h6>Library Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>30</span> </p>
-							        
-							        <h6>Total Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>330</span> </p>
-					         	</div>
-					         </div>
-					         
-					    </div> 
-				    </td> 
-				</tr>
-				<tr colspan="9" data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
-					<td>2</td>
-					<td>2</td>
-					<td>2</td>
-					<td>IAY</td>
-					<td>SAMPOORANAM</td>
-					<td>SENTHIL</td>
-					<td>22</td>
-					<td>21</td>
-					<td>462</td>
-				</tr>
-				<tr class="p">
-				    <td colspan="9" class="hiddenRow">
-					    <div class="accordian-body collapse p-3" id="demo2">
-					         <div class="row">
-					         	<div class="col-md-6">
-					         		<h4>Required</h4>
-					         		<h6>House Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>300</span> </p>
-							        
-							        <h6>Library Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>30</span> </p>
-							        
-							        <h6>Total Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>330</span> </p>
-					         	</div>
-					         	<div class="col-md-6">
-					         		<h4>Received</h4>
-					         		<h6>House Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>300</span> </p>
-							        
-							        <h6>Library Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>30</span> </p>
-							        
-							        <h6>Total Tax</h6>
-					         		<p>Arrear : <span> </span></p>
-							        <p>Current : <span>330</span> </p>
-					         	</div>
-					         </div>
-					         
-					    </div> 
-				    </td> 
-				</tr>
+				<th:block th:each="tx,iter : ${allTaxAccs}">
+					<tr colspan="9" data-toggle="collapse" th:attr="data-target=${'#demo' + iter.index}" class="accordion-toggle">
+						<td th:text="${tx.sno}"></td>
+						<td th:text="${tx.demandNo}"></td>
+						<td th:text="${tx.doorNo}"></td>
+						<td th:text="${tx.houseType}"></td>
+						<td th:text="${tx.name}"></td>
+						<td th:text="${tx.fhName}"></td>
+						<td th:text="${tx.height}"></td>
+						<td th:text="${tx.length}"></td>
+						<td th:text="${tx.total}"></td>
+					</tr>
+					<tr class="p">
+					    <td colspan="9" class="hiddenRow">
+						    <div class="accordian-body collapse p-3" th:attr="id=${'#demo' + iter.index}">
+						         <div class="row">
+						         	<div class="col-md-6">
+						         		<h4>Required</h4>
+						         		<h6>House Tax</h6>
+						         		<p>Arrear : <span  th:text="${tx.taxAccountMap['REQUIRED']?.houseTaxArrear}"> </span></p>
+								        <p>Current : <span th:text="${tx.taxAccountMap['REQUIRED']?.houseTaxCurrent}"></span> </p>
+								        
+								        <h6>Library Tax</h6>
+						         		<p>Arrear : <span th:text="${tx.taxAccountMap['REQUIRED']?.libertyTaxArrear}"> </span></p>
+								        <p>Current : <span th:text="${tx.taxAccountMap['REQUIRED']?.libertyTaxCurrent}"></span> </p>
+								        
+								        <h6>Total Tax</h6>
+						         		<p>Arrear : <span th:text="${tx.taxAccountMap['REQUIRED']?.totalTaxArrear}"> </span></p>
+								        <p>Current : <span th:text="${tx.taxAccountMap['REQUIRED']?.totalTaxCurrent}"></span> </p>
+						         	</div>
+						         	<div class="col-md-6">
+						         		<h4>Received</h4>
+						         		<h6>House Tax</h6>
+						         		<p>Arrear : <span th:text="${tx.taxAccountMap['RECEIVED']?.houseTaxArrear}"> </span></p>
+								        <p>Current : <span th:text="${tx.taxAccountMap['RECEIVED']?.houseTaxCurrent}"></span> </p>
+								        
+								        <h6>Library Tax</h6>
+						         		<p>Arrear : <span th:text="${tx.taxAccountMap['RECEIVED']?.libertyTaxArrear}"> </span></p>
+								        <p>Current : <span th:text="${tx.taxAccountMap['RECEIVED']?.libertyTaxCurrent}"></span> </p>
+								        
+								        <h6>Total Tax</h6>
+						         		<p>Arrear : <span th:text="${tx.taxAccountMap['RECEIVED']?.totalTaxArrear}"> </span></p>
+								        <p>Current : <span th:text="${tx.taxAccountMap['RECEIVED']?.totalTaxCurrent}"></span> </p>
+						         	</div>
+						         </div>
+						         
+						    </div> 
+					    </td> 
+					</tr>
+				</th:block>
 			</tbody>
-		</table>
+	</table>
         
     </div>
 </div> <!-- /container -->

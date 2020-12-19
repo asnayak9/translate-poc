@@ -11,7 +11,7 @@
   		Here you can make an entry of the new tax details.
 	</div>
 	<div id="newTaxEntryCreatedAlert" class="alert alert-success d-none" role="alert">
-  		New tax entry created successfuly
+  		New tax entry created successfully
 	</div>
 	
 	<form id="createTaxFrm" action="#" method="post">
@@ -40,14 +40,16 @@
 		    </div>
 		 </div>
 	  
-		    <div class="form-group">
+	  <div class="form-row">
+		    <div class="form-group col-md-6">
 		      <label for="inputOwnerNm">Owner Name</label>
 		      <input type="text" class="form-control" id="inputCity" placeholder="enter house owner name here">
 		    </div>
-		  <div class="form-group">
+		  <div class="form-group col-md-6">
 		    <label for="inputFHname">F/H Name</label>
 		    <input type="text" class="form-control" id="inputFHname" placeholder="enter f/h name here">
 		  </div>
+	  </div>
 	  
 	  <div class="form-row">
 		  <div class="form-group col-md-4">
@@ -152,7 +154,7 @@
 	
 	<hr/>
 	
-	<table id="taxTable" class="table table-hover">
+	<table id="taxTable" class="table table-sm table-hover tablemanager">
 			<thead>
 				<tr>
 					<th>S.NO</th>

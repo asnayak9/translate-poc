@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.shree.poc.services.TaxAccountService;
+
 /**
  * 
  * @author Abhishek Nayak
@@ -22,6 +24,8 @@ public class HomeContoller {
 	
 	private String appMode;
 
+	private @Autowired TaxAccountService taxSvc;
+	
     @Autowired
     public HomeContoller(Environment environment){
     	LOG.info("Home controller initialized.");
@@ -34,6 +38,7 @@ public class HomeContoller {
         model.addAttribute("datetime", new Date());
         model.addAttribute("username", "Shree");
         model.addAttribute("mode", appMode);
+        model.addAttribute("allTaxAccs", taxSvc.findAll());
         return "index";
     }
 }
