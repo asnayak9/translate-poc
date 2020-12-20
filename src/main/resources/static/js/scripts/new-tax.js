@@ -90,19 +90,22 @@ function send() {
     });
 }
 
-//basic usage
-$('.tablemanager').tablemanager({
-	firstSort: [[3,0],[2,0],[1,'asc']],
-	disable: ["last"],
-	appendFilterby: true,
-	dateFormat: [[4,"mm-dd-yyyy"]],
-	debug: true,
-	vocabulary: {
-voc_filter_by: 'Filter By',
-voc_type_here_filter: 'Filter...',
-voc_show_rows: 'Rows Per Page'
-},
-	pagination: true,
-	showrows: [5,10,20,50,100],
-	disableFilterBy: [1]
+$("#search").on("keyup", function() {
+    var value = $(this).val();
+
+    $("table#taxTable tr[class='accordion-toggle']").each(function(index) {
+        if (index !== 0) {
+
+            $row = $(this);
+
+            var id = $row.find("td:first").text();
+
+            if (id.indexOf(value) !== 0) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+        }
+    });
 });
