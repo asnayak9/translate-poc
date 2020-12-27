@@ -13,6 +13,14 @@ $(document).ready(function(){
     	
     });
     
+    //click on update button
+    $("#updateTaxFrm").submit(function(e){
+    	e.preventDefault(); // avoid to execute the actual submit of the form.
+    	console.log('Update Tax form submitted...');
+    	updateTaxDetails();
+    	
+    });
+    
     $('.accordion-toggle').click(function(){
 		$('.hiddenRow').hide();
 		var $elm = $(this).next('tr').find('.hiddenRow');
@@ -26,8 +34,8 @@ $(document).ready(function(){
 	});
 });
 
-function extractTaxForm(){
-	var $frm = $("#createTaxFrm");
+function extractTaxForm($frm){
+	
 	return {
 	    "sno": $frm.find('#inputSno').val(),
 	    "demandNo": $frm.find('#inputDemandNo').val(),
@@ -71,7 +79,8 @@ function extractTaxForm(){
 }
 
 function send() {
-    var newTax = extractTaxForm();
+	var $frm = $("#createTaxFrm");
+    var newTax = extractTaxForm($frm);
     
     $.ajax({
         url: '/api/tax/create',
@@ -89,6 +98,34 @@ function send() {
         data: JSON.stringify(newTax)
     });
 }
+
+function updateTaxDetails() {
+	var $frm = $("#updateTaxFrm");
+    var taxDetl = extractTaxForm($frm);
+    taxDetl['taxbookId'] = $frm.find('#inputTaxBookId').val();
+    
+    var $taxAccId = $frm.find('#inputTaxAccId').val();
+    taxDetl['taxAccount'][0]['id'] = $taxAccId;
+    taxDetl['taxAccount'][1]['id'] = $taxAccId;
+    taxDetl['taxAccount'][2]['id'] = $taxAccId;
+    
+    $.ajax({
+        url: '/api/tax/modify',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+        	alert(data.message);
+        	$('div#updateTaxEntryAlert').removeClass('d-none');
+        	$('div#updateTaxEntryAlert').addClass('d-block');
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        },
+        data: JSON.stringify(taxDetl)
+    });
+}
+
 
 $("#search").on("keyup", function() {
     var value = $(this).val();

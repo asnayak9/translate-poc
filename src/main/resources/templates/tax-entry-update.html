@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/main_layout}">
+<head>
+    
+    <title>Update tax entry</title>
+
+</head>
+<body>
+<div layout:fragment="content" class="container" style="margin-top: 1%;">
+    <h6>Here you can update an entry of the tax details.</h6>
+	<div id="updateTaxEntryAlert" class="alert alert-success d-none" role="alert">
+  		Modified tax entry details successfully
+	</div>
+	
+	<form id="updateTaxFrm" action="#" method="post" th:object="${taxEntry}">
+		<div class="form-row">
+			<div class="form-group col-md-2">
+		      <label for="inputTaxBookId">Tax book id</label>
+		      <input type="text" disabled="disabled" class="form-control" id="inputTaxBookId" th:field="*{taxbookId}">
+		    </div>
+		</div>
+		<div class="form-row">
+		    <div class="form-group col-md-2">
+		      <label for="inputSno">S. No</label>
+		      <input type="text" class="form-control" id="inputSno" th:value="${taxEntry.sno}">
+		    </div>
+		    <div class="form-group col-md-2">
+		      <label for="inputDemandNo">Demand No</label>
+		      <input type="text" class="form-control" id="inputDemandNo" th:value="${taxEntry.demandNo}">
+		    </div>
+		    <div class="form-group col-md-2">
+		      <label for="inputDoorNo">Door No</label>
+		      <input type="text" class="form-control" id="inputDoorNo" th:value="${taxEntry.doorNo}">
+		    </div>
+		    <div class="form-group col-md-6">
+		      <label for="inputHouseTyp">House Type</label>
+		      <select id="inputHouseTyp" class="form-control">
+		        <option th:each="hsTyp : ${houseTypes}"
+                    th:value="${hsTyp}"
+                    th:text="${hsTyp}">House Type
+           	 	</option>
+		      </select>
+		    </div>
+		 </div>
+	  
+	  <div class="form-row">
+		    <div class="form-group col-md-6">
+		      <label for="inputOwnerNm">Owner Name</label>
+		      <input type="text" class="form-control" id="inputOwnerNm" placeholder="enter house owner name here" th:value="${taxEntry.name}">
+		    </div>
+		  <div class="form-group col-md-6">
+		    <label for="inputFHname">F/H Name</label>
+		    <input type="text" class="form-control" id="inputFHname" placeholder="enter f/h name here" th:value="${taxEntry.fhName}">
+		  </div>
+	  </div>
+	  
+	  <div class="form-row">
+		  <div class="form-group col-md-4">
+		    <label for="inputHeight">Height</label>
+		    <input type="number" class="form-control" id="inputHeight" th:value="${taxEntry.height}" />
+		  </div>
+		  <div class="form-group col-md-4">
+		    <label for="inputLength">Length</label>
+		    <input type="number" class="form-control" id="inputLength" th:value="${taxEntry.length}" />
+		  </div>
+		  <div class="form-group col-md-4">
+		    <label for="inputTotal">Total</label>
+		    <input type="number" class="form-control" id="inputTotal" th:value="${taxEntry.total}" />
+		  </div>
+	  </div>
+	  
+	  <div class="form-row">
+	  	<input type="hidden" id="inputTaxAccId" th:value="${taxEntry.taxAccountMap['REQUIRED']?.id}">
+	  	<div class="form-group col-md-4 gray-box" id="taxReq">
+	  		<h5 class="text-center">REQUIRED</h5>
+	  		<div class="form-row">
+		  		<div class="col-md-4">
+		  			<h6 class="text-center">HOUSE TAX</h6>
+		  				<label for="inputHouseTaxArrear">Arrear</label>
+		  				<input type="number" class="form-control form-control-sm" id="inputHouseTaxArrear" th:value="${taxEntry.taxAccountMap['REQUIRED']?.houseTaxArrear}" />
+		  				<label for="inputHouseTaxCurrent">Current</label>
+		  				<input type="number" class="form-control form-control-sm" id="inputHouseTaxCurrent" th:value="${taxEntry.taxAccountMap['REQUIRED']?.houseTaxCurrent}" />
+		  		</div>
+		  		<div class="col-md-4">
+		  			<h6>LIBERTY TAX</h6>
+		  			<label for="inputLibertyTaxArrear">Arrear</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputLibertyTaxArrear" th:value="${taxEntry.taxAccountMap['REQUIRED']?.libertyTaxArrear}" />
+		  			<label for="inputLibertyTaxCurrent">Current</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputLibertyTaxCurrent" th:value="${taxEntry.taxAccountMap['REQUIRED']?.libertyTaxCurrent}" />
+		  		</div>
+		  		<div class="col-md-4">
+		  			<h6>TOTAL</h6>
+		  			<label for="inputTotalTaxArrear">Arrear</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputTotalTaxArrear" th:value="${taxEntry.taxAccountMap['REQUIRED']?.totalTaxArrear}" />
+		  			<label for="inputTotalTaxCurrent">Current</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputTotalTaxCurrent" th:value="${taxEntry.taxAccountMap['REQUIRED']?.totalTaxCurrent}" />
+		  		</div>
+	  		</div>
+	  	</div>
+	  	
+	  	<div class="form-group col-md-4 gray-box" id="taxRec">
+	  		<h5 class="text-center">RECEIVED</h5>
+	  		<div class="form-row">
+		  		<div class="col-md-4">
+		  			<h6>HOUSE TAX</h6>
+		  			<label for="inputHouseTaxArrear">Arrear</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputHouseTaxArrear" th:value="${taxEntry.taxAccountMap['RECEIVED']?.houseTaxArrear}" />
+		  			<label for="inputHouseTaxCurrent">Current</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputHouseTaxCurrent" th:value="${taxEntry.taxAccountMap['RECEIVED']?.houseTaxCurrent}" />
+		  		</div>
+		  		<div class="col-md-4">
+		  			<h6>LIBERTY TAX</h6>
+		  			<label for="inputLibertyTaxArrear">Arrear</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputLibertyTaxArrear" th:value="${taxEntry.taxAccountMap['RECEIVED']?.libertyTaxArrear}" />
+		  			<label for="inputLibertyTaxCurrent">Current</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputLibertyTaxCurrent" th:value="${taxEntry.taxAccountMap['RECEIVED']?.libertyTaxCurrent}" />
+		  		</div>
+		  		<div class="col-md-4">
+		  			<h6>TOTAL</h6>
+		  			<label for="inputTotalTaxArrear">Arrear</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputTotalTaxArrear" th:value="${taxEntry.taxAccountMap['RECEIVED']?.totalTaxArrear}" />
+		  			<label for="inputTotalTaxCurrent">Current</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputTotalTaxCurrent" th:value="${taxEntry.taxAccountMap['RECEIVED']?.totalTaxCurrent}" />
+		  		</div>
+	  		</div>
+	  	</div>
+	  	
+	  	<div class="form-group col-md-4 gray-box" id="taxReqPend">
+	  		<h5 class="text-center">REQUIRED</h5>
+	  		<div class="form-row">
+		  		<div class="col-md-4">
+		  			<h6>HOUSE TAX</h6>
+		  			<label for="inputHouseTaxArrear">Arrear</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputHouseTaxArrear" th:value="${taxEntry.taxAccountMap['REQUIRED']?.houseTaxArrear}" />
+		  			<label for="inputHouseTaxCurrent">Current</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputHouseTaxCurrent" th:value="${taxEntry.taxAccountMap['REQUIRED']?.houseTaxCurrent}" />
+		  		</div>
+		  		<div class="col-md-4">
+		  			<h6>LIBERTY TAX</h6>
+		  			<label for="inputLibertyTaxArrear">Arrear</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputLibertyTaxArrear" th:value="${taxEntry.taxAccountMap['REQUIRED']?.libertyTaxArrear}" />
+		  			<label for="inputLibertyTaxCurrent">Current</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputLibertyTaxCurrent" th:value="${taxEntry.taxAccountMap['REQUIRED']?.libertyTaxCurrent}" />
+		  		</div>
+		  		<div class="col-md-4">
+		  			<h6>TOTAL</h6>
+		  			<label for="inputTotalTaxArrear">Arrear</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputTotalTaxArrear" th:value="${taxEntry.taxAccountMap['REQUIRED']?.totalTaxArrear}" />
+		  			<label for="inputTotalTaxCurrent">Current</label>
+		  			<input type="number" class="form-control form-control-sm" id="inputTotalTaxCurrent" th:value="${taxEntry.taxAccountMap['REQUIRED']?.totalTaxCurrent}" />
+		  		</div>
+	  		</div>
+	  	</div>
+	  </div>
+	  
+	  <button type="submit" class="btn btn-primary">Update</button>
+	</form>
+			
+</div> <!-- /container -->
+
+</body>
+</html>

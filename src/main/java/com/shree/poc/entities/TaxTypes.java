@@ -48,6 +48,7 @@ public class TaxTypes {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((taxAccount == null) ? 0 : taxAccount.hashCode());
 		result = prime * result + (int) (taxTypeId ^ (taxTypeId >>> 32));
 		result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
 		return result;
@@ -62,6 +63,11 @@ public class TaxTypes {
 		if (getClass() != obj.getClass())
 			return false;
 		TaxTypes other = (TaxTypes) obj;
+		if (taxAccount == null) {
+			if (other.taxAccount != null)
+				return false;
+		} else if (!taxAccount.equals(other.taxAccount))
+			return false;
 		if (taxTypeId != other.taxTypeId)
 			return false;
 		if (typeName == null) {

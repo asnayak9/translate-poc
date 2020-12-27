@@ -118,13 +118,14 @@ public class TaxAccount {
 	public void setTaxbook(Taxbook taxbook) {
 		this.taxbook = taxbook;
 	}
-
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((taxType == null) ? 0 : taxType.hashCode());
+		result = prime * result + ((taxbook == null) ? 0 : taxbook.hashCode());
 		return result;
 	}
 
@@ -138,6 +139,16 @@ public class TaxAccount {
 			return false;
 		TaxAccount other = (TaxAccount) obj;
 		if (id != other.id)
+			return false;
+		if (taxType == null) {
+			if (other.taxType != null)
+				return false;
+		} else if (!taxType.equals(other.taxType))
+			return false;
+		if (taxbook == null) {
+			if (other.taxbook != null)
+				return false;
+		} else if (!taxbook.equals(other.taxbook))
 			return false;
 		return true;
 	}

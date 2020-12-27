@@ -37,6 +37,42 @@ public class TaxAccountServiceImpl implements TaxAccountService {
 		taxBookRepo.save(tax);
 	}
 	
+	@Override
+	public TaxEntryVo findOne(Long sno) {
+		LOG.info("findOne() called");
+		LOG.debug("findOne() called with: {}", sno);
+		
+		Optional<Taxbook> tbOptional = taxBookRepo.findById(sno);
+		if(tbOptional.isPresent()) {
+			return convertListToMap(new TaxEntryVo(tbOptional.get()));
+		}
+		
+		throw new IllegalArgumentException("Invalid tax entry id: "+sno);
+	}
+	
+	@Override
+	public void delete(Long sno) {
+		LOG.info("delete() called");
+		LOG.debug("delete() called with: {}", sno);
+		
+		if(taxBookRepo.existsById(sno)) {
+			taxBookRepo.deleteById(sno);
+		}
+	}
+	
+	@Override
+	public void update(TaxEntryVo newTax) {
+		LOG.info("update() called");
+		LOG.debug("update() called with: {}", newTax);
+		
+		Taxbook tax = convertVoToEntity(newTax);
+		tax.setTaxbookId(newTax.getTaxbookId());
+		
+		taxBookRepo.save(tax);
+		
+		LOG.info("Updated tax details");
+	}
+	
 	private Taxbook convertVoToEntity(TaxEntryVo newTax) {
 		Taxbook tb = new Taxbook();
 		tb.setSno(newTax.getSno());
@@ -57,6 +93,7 @@ public class TaxAccountServiceImpl implements TaxAccountService {
 		TaxAccount ta = null;
 		for(TaxAccountVo nt : newTax.getTaxAccount()) {
 			ta = new TaxAccount();
+			ta.setId(nt.getId());
 			ta.setHouseTaxArrear(nt.getHouseTaxArrear());
 			ta.setHouseTaxCurrent(nt.getHouseTaxCurrent());
 			ta.setLibertyTaxArrear(nt.getLibertyTaxArrear());

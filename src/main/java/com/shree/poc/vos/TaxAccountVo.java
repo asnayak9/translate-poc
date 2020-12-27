@@ -104,6 +104,34 @@ public class TaxAccountVo {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((taxType == null) ? 0 : taxType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TaxAccountVo other = (TaxAccountVo) obj;
+		if (id != other.id)
+			return false;
+		if (taxType == null) {
+			if (other.taxType != null)
+				return false;
+		} else if (!taxType.equals(other.taxType))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("TaxAccountVo [id=");

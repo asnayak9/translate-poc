@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,19 @@ public class TaxBookRestController {
 		return new ResponseEntity<List<TaxEntryVo>>(taxBookSvc.findAll(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/details/{taxbookId}")
+	public ResponseEntity<TaxEntryVo> getTaxDetails(@PathVariable("taxbookId")Long taxbookId){
+		LOG.info("Get single tax account called "+taxbookId);
+		return new ResponseEntity<TaxEntryVo>(taxBookSvc.findOne(taxbookId), HttpStatus.OK);
+	}
+	
+	@GetMapping("/remove/{taxbookId}")
+	public ResponseEntity<TaxResponse> remove(@PathVariable("taxbookId")Long taxbookId){
+		LOG.info("Delete single tax account called "+taxbookId);
+		taxBookSvc.delete(taxbookId);
+		return new ResponseEntity<TaxResponse>(TaxResponse.of("Successfully deleted tax: "+taxbookId), HttpStatus.OK);
+	}
+	
 	@PostMapping("/create")
 	public ResponseEntity<TaxResponse> createNewTaxEntry(@RequestBody TaxEntryVo newTax){
 		LOG.info("New tax entry called");
@@ -39,5 +53,15 @@ public class TaxBookRestController {
 		taxBookSvc.create(newTax);
 		
 		return new ResponseEntity<>(TaxResponse.of("Successfully created new tax entry") , HttpStatus.OK);
+	}
+	
+	@PostMapping("/modify")
+	public ResponseEntity<TaxResponse> updateTaxEntry(@RequestBody TaxEntryVo newTax){
+		LOG.info("Modify tax entry called");
+		LOG.debug("Modify tax entry called with: {}", newTax);
+		
+		taxBookSvc.update(newTax);
+		
+		return new ResponseEntity<>(TaxResponse.of("Successfully updated tax entry") , HttpStatus.OK);
 	}
 }
